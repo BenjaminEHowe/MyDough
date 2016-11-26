@@ -1,0 +1,25 @@
+body {
+  padding-top: 55px;
+}
+
+.navbar-mydough {
+  background-color: #14233c;
+}
+
+.navbar-mydough .navbar-brand, .navbar-mydough .navbar-nav>li>a {
+  color: #fff;
+}
+
+.navbar-mydough .navbar-nav>li>a:focus, .navbar-mydough .navbar-nav>li>a:hover {
+  background: #080D17;
+}
+
+.navbar-mydough .navbar-brand:focus, .navbar-mydough .navbar-brand:hover, .navbar-mydough .navbar-nav>li>a:focus, .navbar-mydough .navbar-nav>li>a:hover {
+  color: #ddd;
+}
+
+.navbar-mydough .navbar-nav>.active>a, .navbar-mydough .navbar-nav>.active>a:focus, .navbar-mydough .navbar-nav>.active>a:hover {
+  background-color: #00a4db;
+  color: #fff;
+  font-weight: bold;
+}
