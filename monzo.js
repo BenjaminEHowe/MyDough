@@ -15,32 +15,32 @@ var monzo = {
   
   // auth functions
   auth: function() {
-    if (clientId == null) {
+    if (this.clientId == null) {
       throw new Error("clientId isn't set and yet auth was called!");
     }
-    if (clientSecret == null) {
+    if (this.clientSecret == null) {
       throw new Error("clientSecret isn't set and yet auth was called!");
     }
-    if (state == null) {
+    if (this.state == null) {
       throw new Error("state isn't set and yet auth was called!");
     }
-    if (redirectUri == null) {
+    if (this.redirectUri == null) {
       throw new Error("redirectUri isn't set and yet auth was called!");
     }
     window.location = "https://auth.getmondo.co.uk/?client_id=" + this.clientId + "&redirect_uri=" + this.redirectUri + "&response_type=code&state=" + this.state;
   },
   
   callback: function(authCode, state) {
-    if (clientId == null) {
+    if (this.clientId == null) {
       throw new Error("clientId isn't set and yet callback was called!");
     }
-    if (clientSecret == null) {
+    if (this.clientSecret == null) {
       throw new Error("clientSecret isn't set and yet callback was called!");
     }
-    if (state == null) {
+    if (this.state == null) {
       throw new Error("state isn't set and yet callback was called!");
     }
-    if (redirectUri == null) {
+    if (this.redirectUri == null) {
       throw new Error("redirectUri isn't set and yet callback was called!");
     }
     
