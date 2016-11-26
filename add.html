@@ -30,7 +30,8 @@
           "state": Math.random().toString(36),
         }
         // save everything in a cookie for later
-        setCookie("monzoAuthInProgress", JSON.stringify(monzoAuthInProgress), window.location.href.replace("add.html", ""));
+        var cookiePath = new RegExp("https://.+?(/.+?)/add.html").exec(document.location.href)[1];
+        setCookie("monzoAuthInProgress", JSON.stringify(monzoAuthInProgress), cookiePath);
         // redirect to monzo
       }
     }
