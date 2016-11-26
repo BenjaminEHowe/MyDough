@@ -23,7 +23,7 @@
       throw new Error("Couldn't get accounts cookie!");
     }
     
-    for (int i = 0; i < accounts.length; i++) {
+    for (var i = 0; i < accounts.length; i++) {
       // find the correct account
       if (accounts[i].provider == "monzo" && accounts[i].authType == "oauth2" && accounts[i].state == window.params.state) {
         accounts[i].callback(window.params.code);
