@@ -36,7 +36,7 @@ function monzoAuth(monzo) {
   window.location = "https://auth.getmondo.co.uk/?client_id=" + monzo.clientId + "&redirect_uri=" + monzo.redirectUri + "&response_type=code&state=" + monzo.state;
 }
 
-function monzoCallback(authCode) {
+function monzoCallback(monzo, authCode) {
   if (monzo.clientId == null) {
     throw new Error("clientId isn't set and yet callback was called!");
   }
