@@ -39,7 +39,6 @@
         accounts[id].clientSecret = document.getElementById("clientSecret").value;
         accounts[id].redirectUri = window.location.href.replace("add.html", "") + "callback-monzo.html";
         accounts[id].state = Math.random().toString(36);
-        accounts.push(monzo);
         // save everything in a cookie for later
         var cookiePath = new RegExp("https://.+?(/.+?)/add.html").exec(document.location.href)[1];
         setCookie("accounts", JSON.stringify(accounts), cookiePath, 28*24); // store accounts for 28 days
