@@ -8,10 +8,10 @@ var monzo = {
   accessToken: null,
   accessExpires: -1,
   // variables below used while auth is being negotiated
-  clientId = null,
-  clientSecret = null,
-  state = null,
-  redirectUri = null,
+  clientId: null,
+  clientSecret: null,
+  state: null,
+  redirectUri: null,
   
   // auth functions
   auth: function() {
@@ -60,7 +60,7 @@ var monzo = {
   },  
   
   // other variables  
-  accountId = null,
+  accountId: null,
 };
 
 function getMonzo() {
