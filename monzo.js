@@ -5,42 +5,42 @@ var monzo = {
   
   // auth
   authType: "oauth2",
-  accessToken: "",
+  accessToken: null,
   accessExpires: -1,
   // variables below used while auth is being negotiated
-  clientId = "",
-  clientSecret = "",
-  state = "",
-  redirectUri = "",
+  clientId = null,
+  clientSecret = null,
+  state = null,
+  redirectUri = null,
   
   // auth functions
   auth: function() {
-    if (clientId == "") {
+    if (clientId == null) {
       throw new Error("clientId isn't set and yet auth was called!");
     }
-    if (clientSecret == "") {
+    if (clientSecret == null) {
       throw new Error("clientSecret isn't set and yet auth was called!");
     }
-    if (state == "") {
+    if (state == null) {
       throw new Error("state isn't set and yet auth was called!");
     }
-    if (redirectUri == "") {
+    if (redirectUri == null) {
       throw new Error("redirectUri isn't set and yet auth was called!");
     }
     window.location = "https://auth.getmondo.co.uk/?client_id=" + this.clientId + "&redirect_uri=" + this.redirectUri + "&response_type=code&state=" + this.state;
   },
   
   callback: function(authCode, state) {
-    if (clientId == "") {
+    if (clientId == null) {
       throw new Error("clientId isn't set and yet callback was called!");
     }
-    if (clientSecret == "") {
+    if (clientSecret == null) {
       throw new Error("clientSecret isn't set and yet callback was called!");
     }
-    if (state == "") {
+    if (state == null) {
       throw new Error("state isn't set and yet callback was called!");
     }
-    if (redirectUri == "") {
+    if (redirectUri == null) {
       throw new Error("redirectUri isn't set and yet callback was called!");
     }
     
@@ -52,15 +52,15 @@ var monzo = {
       this.accessToken = JSON.parse(request.responseText).access_token;
       this.accessExpires = Date.now() + JSON.parse(request.responseText).expires_in * 1000;
       // clear the variables we were using while getting an access token
-      this.clientId = "";
-      this.clientSecret = "";
-      this.redirectUri = "";
-      this.state = "";
+      this.clientId = null;
+      this.clientSecret = null;
+      this.redirectUri = null;
+      this.state = null;
     }
   },  
   
   // other variables  
-  accountId = "",
+  accountId = null,
 };
 
 function getMonzo() {
