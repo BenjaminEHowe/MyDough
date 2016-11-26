@@ -67,7 +67,7 @@ function monzoCallback(monzo, authCode) {
     request.open("GET", "https://api.monzo.com/accounts", false);
     request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
     request.send();
-    monzo.accountId = JSON.parse(request.responseText).accounts[0];
+    monzo.accountId = JSON.parse(request.responseText).accounts[0].id;
   }
 }
 
