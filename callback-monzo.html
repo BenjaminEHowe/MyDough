@@ -42,7 +42,7 @@
         "type": "monzo",
         "access_token": JSON.parse(request.responseText).access_token,
         "access_expires": Date.now() + JSON.parse(request.responseText).expires_in * 1000,
-      })
+      });
       
       var cookiePath = new RegExp("https://.+?(/.+?)/callback-monzo.html").exec(document.location.href)[1];
       //setCookie("monzoAuthInProgress", "", cookiePath, -1); // expire the "in progress" cookie
