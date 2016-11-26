@@ -7,9 +7,6 @@
 	<link rel="stylesheet" href="mydough.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
   <script type="text/javascript" src="cookies.js"></script>
-  <script type="text/javascript">
-    var monzo;
-  </script>
   <script type="text/javascript" src="monzo.js"></script>
   <script type="text/javascript">
     function changeProvider() {
@@ -35,17 +32,19 @@
       }
       var provider = document.getElementById("provider").value;
       if (provider == 'monzo') {
+        var id = accounts.length;
+        accounts.push(getMonzo());
         // set client ID, secret, redirect uri, and state
-        monzo.clientId = document.getElementById("clientId").value;
-        monzo.clientSecret = document.getElementById("clientSecret").value;
-        monzo.redirectUri = window.location.href.replace("add.html", "") + "callback-monzo.html";
-        monzo.state = Math.random().toString(36);
+        accounts[id].clientId = document.getElementById("clientId").value;
+        accounts[id].clientSecret = document.getElementById("clientSecret").value;
+        accounts[id].redirectUri = window.location.href.replace("add.html", "") + "callback-monzo.html";
+        accounts[id].state = Math.random().toString(36);
         accounts.push(monzo);
         // save everything in a cookie for later
         var cookiePath = new RegExp("https://.+?(/.+?)/add.html").exec(document.location.href)[1];
         setCookie("accounts", JSON.stringify(accounts), cookiePath, 28*24); // store accounts for 28 days
         // redirect to monzo
-        monzo.auth();
+        accounts[id].auth();
       }
     }
     

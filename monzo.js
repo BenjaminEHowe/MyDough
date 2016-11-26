@@ -1,4 +1,4 @@
-monzo = {
+var monzo = {
   // general
   name: "Monzo Account",
   provider: "monzo",
@@ -57,8 +57,12 @@ monzo = {
       this.redirectUri = "";
       this.state = "";
     }
-  }
+  },  
   
   // other variables  
   accountId = "",
 };
+
+function getMonzo() {
+  return monzo;
+}
