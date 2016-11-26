@@ -13,7 +13,7 @@
       if (provider == '') {
         providerDetails.innerHTML = '';
       } else if (provider == 'monzo') {
-        providerDetails.innerHTML += 'You need to <a href="https://developers.getmondo.co.uk/apps/">create an oAuth client</a>.<br />';
+        providerDetails.innerHTML += 'You need to <a href="https://developers.monzo.com/apps/">create an oAuth client</a>.<br />';
         providerDetails.innerHTML += '<label for="client_id">Client ID:</label><input id="client_id" type="text"><br />';
         providerDetails.innerHTML += '<label for="client_secret">Client Secret:</label><input id="client_secret" type="text"><br />';
         providerDetails.innerHTML += '<button id="submitDetails" type="button">Submit</button>';
@@ -35,7 +35,7 @@
         var cookiePath = new RegExp("https://.+?(/.+?)/add.html").exec(document.location.href)[1];
         setCookie("monzoAuthInProgress", JSON.stringify(monzoAuthInProgress), cookiePath);
         // redirect to monzo
-        window.location = "https://auth.getmondo.co.uk/?client_id=" + monzoAuthInProgress.client_id + "&redirect_uri=" + monzoAuthInProgress.redirect_uri + "&response_type=code&state=" + monzoAuthInProgress.state;
+        window.location = "https://auth.monzo.com/?client_id=" + monzoAuthInProgress.client_id + "&redirect_uri=" + monzoAuthInProgress.redirect_uri + "&response_type=code&state=" + monzoAuthInProgress.state;
       }
     }
     
