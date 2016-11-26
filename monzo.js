@@ -58,9 +58,9 @@ function monzoCallback(monzo, authCode) {
     monzo.accessToken = JSON.parse(request.responseText).access_token;
     monzo.accessExpires = Date.now() + JSON.parse(request.responseText).expires_in * 1000;
     // clear the variables we were using while getting an access token
-    delete monzo[clientId];
-    delete monzo[clientSecret];
-    delete monzo[redirectUri];
-    delete monzo[state];
+    delete monzo["clientId"];
+    delete monzo["clientSecret"];
+    delete monzo["redirectUri"];
+    delete monzo["state"];
   }
 }
