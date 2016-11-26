@@ -1,6 +1,6 @@
 function getCookie(key) {
   key += "=";
-  var cookieArray = document.cookie.split(";");
+  var cookieArray = document.cookie.split("; ");
   for(var i = 0; i < cookieArray.length; i++) {
     var cookie = cookieArray[i];
     if (cookie.indexOf(key) == 0) {

@@ -21,6 +21,7 @@
     }
     
     function submitDetails() {
+      var provider = document.getElementById("provider").value;
       if (provider == 'monzo') {
         // set client ID, secret, redirect uri, and state
         var monzoAuthInProgress = {
