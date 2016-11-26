@@ -5,6 +5,7 @@
 	<title>Monzo Callback - MyDough</title>
 	<meta name="author" content="Benjamin Howe" />
   <script type="text/javascript" src="cookies.js"></script>
+  <script type="text/javascript" src="monzo.js"></script>
 	<script type="text/javascript">
     window.params = function() {
       var params = {};
@@ -16,39 +17,22 @@
       return params;
     }();
     
-    if (!getCookie("monzoAuthInProgress")) {
-      throw new Error("Couldn't get monzoAuthInProgress cookie!");
-    }
-    var monzoAuthInProgress = JSON.parse(getCookie("monzoAuthInProgress"));
-    
-    if (window.params.state != monzoAuthInProgress.state) {
-      throw new Error("Invalid state!");
-    }
-    
-    if (getCookie("auths")) {
-      auths = JSON.parse(getCookie("auths"));
+    if (getCookie("accounts")) {
+      accounts = JSON.parse(getCookie("accounts"));
     } else {
-      auths = new Array();
+      throw new Error("Couldn't get accounts cookie!");
     }
     
-    var request = new XMLHttpRequest();
-    request.open("POST", "https://api.monzo.com/oauth2/token", false);
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.send("grant_type=authorization_code&client_id=" + monzoAuthInProgress.client_id + "&client_secret=" + monzoAuthInProgress.client_secret + "&redirect_uri=" + monzoAuthInProgress.redirect_uri + "&code=" + window.params.code);
-    
-    if (request.status == 200) {
-      auths.push({
-        "name": "Monzo account",
-        "type": "monzo",
-        "access_token": JSON.parse(request.responseText).access_token,
-        "access_expires": Date.now() + JSON.parse(request.responseText).expires_in * 1000,
-      });
-      
-      var cookiePath = new RegExp("https://.+?(/.+?)/callback-monzo.html").exec(document.location.href)[1];
-      setCookie("monzoAuthInProgress", "", cookiePath, -1); // expire the "in progress" cookie
-      setCookie("auths", JSON.stringify(auths), cookiePath, 28 * 24); // 28 days
-      window.location = cookiePath;
+    for (int i = 0; i < accounts.length; i++) {
+      // find the correct account
+      if (accounts[i].provider == "monzo" && accounts[i].authType == "oauth2" && accounts[i].state == window.params.state) {
+        accounts[i].callback(window.params.code);
+      }
     }
+    
+    var cookiePath = new RegExp("https://.+?(/.+?)/callback-monzo.html").exec(document.location.href)[1];
+    setCookie("accounts", JSON.stringify(accounts), cookiePath, 28*24); // store accounts for 28 days
+    window.location = cookiePath;
   </script>
   <script type="text/javascript" src="cookies.js" ></script>
 </head>

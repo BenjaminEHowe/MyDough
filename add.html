@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="mydough.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
   <script type="text/javascript" src="cookies.js"></script>
+  <script type="text/javascript" src="monzo.js"></script>
   <script type="text/javascript">
     function changeProvider() {
       var provider = document.getElementById("provider").value;
@@ -14,29 +15,34 @@
       if (provider == '') {
         providerDetails.innerHTML = '';
       } else if (provider == 'monzo') {
-        providerDetails.innerHTML += 'You need to <a href="https://developers.monzo.com/apps/">create an oAuth client</a>.<br />';
-        providerDetails.innerHTML += '<label for="client_id">Client ID:</label><input id="client_id" type="text"><br />';
-        providerDetails.innerHTML += '<label for="client_secret">Client Secret:</label><input id="client_secret" type="text"><br />';
+        providerDetails.innerHTML += '<p>You need to <a href="https://developers.monzo.com/apps/">create an oAuth client</a>.</p>';
+        providerDetails.innerHTML += '<label for="clientId">Client ID:</label><input id="clientId" type="text"><br />';
+        providerDetails.innerHTML += '<label for="clientSecret">Client Secret:</label><input id="clientSecret" type="text"><br />';
         providerDetails.innerHTML += '<button id="submitDetails" type="button">Submit</button>';
         document.getElementById("submitDetails").addEventListener("click", submitDetails);
       }
     }
     
     function submitDetails() {
+      var accounts;
+      if (getCookie("accounts")) {
+        accounts = JSON.parse(getCookie("accounts"));
+      } else {
+        accounts = new Array();
+      }
       var provider = document.getElementById("provider").value;
       if (provider == 'monzo') {
         // set client ID, secret, redirect uri, and state
-        var monzoAuthInProgress = {
-          "client_id": document.getElementById("client_id").value,
-          "client_secret": document.getElementById("client_secret").value,
-          "redirect_uri": window.location.href.replace("add.html", "") + "callback-monzo.html",
-          "state": Math.random().toString(36),
-        }
+        monzo.clientId = document.getElementById("clientId").value;
+        monzo.clientSecret = document.getElementById("clientSecret").value;
+        monzo.redirectUri = window.location.href.replace("add.html", "") + "callback-monzo.html";
+        monzo.state = Math.random().toString(36);
+        accounts.push(monzo);
         // save everything in a cookie for later
         var cookiePath = new RegExp("https://.+?(/.+?)/add.html").exec(document.location.href)[1];
-        setCookie("monzoAuthInProgress", JSON.stringify(monzoAuthInProgress), cookiePath);
+        setCookie("accounts", JSON.stringify(accounts), cookiePath, 28*24); // store accounts for 28 days
         // redirect to monzo
-        window.location = "https://auth.getmondo.co.uk/?client_id=" + monzoAuthInProgress.client_id + "&redirect_uri=" + monzoAuthInProgress.redirect_uri + "&response_type=code&state=" + monzoAuthInProgress.state;
+        monzo.auth();
       }
     }
     

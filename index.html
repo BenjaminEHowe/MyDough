@@ -10,10 +10,20 @@
   <script type="text/javascript">
     var auths;
     
+    function clearDisplay() {
+      document.getElementById("accountTransactions").innerHTML = "";
+      document.getElementById("accountDetails").innerHTML = "";
+    }
+    
     function displayAccount(id) {
       if (auths[id].type == "monzo") {
-        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(id);
-        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(id);
+        var request = new XMLHttpRequest();
+        request.open("GET", "https://api.monzo.com/accounts", false);
+        request.setRequestHeader("Authorization", "Bearer " + auths[id].accessToken);
+        request.send();
+        var accountId = JSON.parse(request.responseText).accounts[0];
+        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(auths[id].accessToken, accountId);
+        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(auths[id].accessToken, accountId);
       }
     }
     
@@ -25,6 +35,11 @@
     
     function monzoDetailsHTML(id) {
       var HTML = "";
+      var request = new XMLHttpRequest();
+      request.open("GET", "https://api.getmondo.co.uk/balance?account_id=" + account_id, false);
+      request.setRequestHeader("Authorization", "Bearer " + this.accessToken);
+      request.send();
+      return JSON.parse(request.responseText);
       return HTML;
     }
     
@@ -33,7 +48,7 @@
         auths = JSON.parse(getCookie("auths"));
         for (var i = 0; i < auths.length; i++) {
           var account = document.createElement('li');
-          account.appendChild(document.createTextNode(auths[i].name));
+          account.appendChild(document.createTextNode('<a href="javascript:displayAccount(' + i + ')">' + auths[i].name + '</a>'));
           document.getElementById("accounts").appendChild(account);
         }
       }
@@ -58,6 +73,7 @@
     <div class="col-md-2">
       <h2>Accounts</h2>
       <ul id="accounts"></ul>
+      <p><a href="javascript:clearDisplay()">Clear Display</a></p>
     </div>
     <div id="accountTransactions" class="col-md-8">
     </div>
