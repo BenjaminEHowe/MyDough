@@ -26,7 +26,7 @@
     for (var i = 0; i < accounts.length; i++) {
       // find the correct account
       if (accounts[i].provider == "monzo" && accounts[i].authType == "oauth2" && accounts[i].state == window.params.state) {
-        accounts[i].callback(window.params.code);
+        monzoCallback(accounts[i], window.params.code);
       }
     }
     

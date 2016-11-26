@@ -44,7 +44,7 @@
         var cookiePath = new RegExp("https://.+?(/.+?)/add.html").exec(document.location.href)[1];
         setCookie("accounts", JSON.stringify(accounts), cookiePath, 28*24); // store accounts for 28 days
         // redirect to monzo
-        accounts[id].auth();
+        monzoAuth(accounts[id]);
       }
     }
     
