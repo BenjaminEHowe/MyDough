@@ -17,13 +17,8 @@
     
     function displayAccount(id) {
       if (accounts[id].type == "monzo") {
-        var request = new XMLHttpRequest();
-        request.open("GET", "https://api.monzo.com/accounts", false);
-        request.setRequestHeader("Authorization", "Bearer " + accounts[id].accessToken);
-        request.send();
-        var accountId = JSON.parse(request.responseText).accounts[0];
-        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(accounts[id].accessToken, accountId);
-        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(accounts[id].accessToken, accountId);
+        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(id);
+        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(id);
       }
     }
     
@@ -35,11 +30,11 @@
     
     function monzoDetailsHTML(id) {
       var HTML = "";
-      var request = new XMLHttpRequest();
+      /*var request = new XMLHttpRequest();
       request.open("GET", "https://api.getmondo.co.uk/balance?account_id=" + account_id, false);
       request.setRequestHeader("Authorization", "Bearer " + this.accessToken);
       request.send();
-      return JSON.parse(request.responseText);
+      return JSON.parse(request.responseText);*/
       return HTML;
     }
     
