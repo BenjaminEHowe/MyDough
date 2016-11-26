@@ -34,6 +34,7 @@
         var cookiePath = new RegExp("https://.+?(/.+?)/add.html").exec(document.location.href)[1];
         setCookie("monzoAuthInProgress", JSON.stringify(monzoAuthInProgress), cookiePath);
         // redirect to monzo
+        window.location = "https://auth.getmondo.co.uk/?client_id= " + monzoAuthInProgress.client_id + "&redirect_uri=" + monzoAuthInProgress.redirect_uri + "&response_type=code&state=" + monzoAuthInProgress.state;
       }
     }
     
