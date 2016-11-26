@@ -72,23 +72,23 @@ function monzoCallback(monzo, authCode) {
 }
 
 // HTML functions
-function monzoTransactionHTML(id) {
+function monzoTransactionHTML(monzo) {
   var HTML = "";
-  HTML += "<h2>" + accounts[id].name + "</h2>";
+  HTML += "<h2>" + monzo.name + "</h2>";
   return HTML;
 }
 
-function monzoDetailsHTML(id) {
+function monzoDetailsHTML(monzo) {
   var HTML = "";
-  HTML += JSON.stringify(monzoGetBalance());
+  HTML += JSON.stringify(monzoGetBalance(monzo));
   return HTML;
 }
 
 // other functions
-function monzoGetBalance() {
+function monzoGetBalance(monzo) {
   var request = new XMLHttpRequest();
-  request.open("GET", "https://api.monzo.com/balance?account_id=" + account_id, false);
-  request.setRequestHeader("Authorization", "Bearer " + this.accessToken);
+  request.open("GET", "https://api.monzo.com/balance?account_id=" + monzo.accountId, false);
+  request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
   request.send();
   return JSON.parse(request.responseText);
 }
