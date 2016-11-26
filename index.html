@@ -11,7 +11,7 @@
     var auths;
     
     function displayAccount(id) {
-      if (auths[i].type == monzo) {
+      if (auths[id].type == monzo) {
         document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(id);
         document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(id);
       }
