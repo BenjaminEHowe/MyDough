@@ -46,7 +46,7 @@
       
       var cookiePath = new RegExp("https://.+?(/.+?)/callback-monzo.html").exec(document.location.href)[1];
       setCookie("monzoAuthInProgress", "", cookiePath, -1); // expire the "in progress" cookie
-      setCookie("auths", JSON.stringify(auths), cookiePath, 48);
+      setCookie("auths", JSON.stringify(auths), cookiePath, 28 * 24); // 28 days
       window.location = cookiePath;
     }
   </script>
