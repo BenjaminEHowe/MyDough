@@ -1,4 +1,4 @@
-var monzo = {
+monzo = {
   // general
   name: "Monzo Account",
   provider: "monzo",
