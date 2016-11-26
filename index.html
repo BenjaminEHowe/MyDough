@@ -47,9 +47,9 @@
       if (getCookie("accounts")) {
         accounts = JSON.parse(getCookie("accounts"));
         for (var i = 0; i < accounts.length; i++) {
-          var account = document.createElement('li');
-          account.appendChild(document.createTextNode('<a href="javascript:displayAccount(' + i + ')">' + accounts[i].name + '</a>'));
-          document.getElementById("accounts").appendChild(account);
+          if (accounts[i].authType == "secret" || (accounts[i].authType == "oauth2" && accounts[i].accessExpires != -1)) {
+            document.getElementById("accounts").innerHTML += '<li><a href="javascript:displayAccount(' + i + ')">' + accounts[i].name + '</a></li>';
+          }
         }
       }
     };
