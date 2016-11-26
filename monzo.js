@@ -62,5 +62,33 @@ function monzoCallback(monzo, authCode) {
     delete monzo["clientSecret"];
     delete monzo["redirectUri"];
     delete monzo["state"];
+    // get the account id
+    var request = new XMLHttpRequest();
+    request.open("GET", "https://api.monzo.com/accounts", false);
+    request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
+    request.send();
+    monzo.accountId = JSON.parse(request.responseText).accounts[0];
   }
+}
+
+// HTML functions
+function monzoTransactionHTML(id) {
+  var HTML = "";
+  HTML += "<h2>" + accounts[id].name + "</h2>";
+  return HTML;
+}
+
+function monzoDetailsHTML(id) {
+  var HTML = "";
+  HTML += JSON.stringify(monzoGetBalance());
+  return HTML;
+}
+
+// other functions
+function monzoGetBalance() {
+  var request = new XMLHttpRequest();
+  request.open("GET", "https://api.monzo.com/balance?account_id=" + account_id, false);
+  request.setRequestHeader("Authorization", "Bearer " + this.accessToken);
+  request.send();
+  return JSON.parse(request.responseText);
 }

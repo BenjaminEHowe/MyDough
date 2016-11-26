@@ -18,25 +18,9 @@
     
     function displayAccount(id) {
       if (accounts[id].provider == "monzo") {
-        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(id);
-        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(id);
+        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(account[id]);
+        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(account[id]);
       }
-    }
-    
-    function monzoTransactionHTML(id) {
-      var HTML = "";
-      HTML += "<h2>" + accounts[id].name + "</h2>";
-      return HTML;
-    }
-    
-    function monzoDetailsHTML(id) {
-      var HTML = "";
-      /*var request = new XMLHttpRequest();
-      request.open("GET", "https://api.getmondo.co.uk/balance?account_id=" + account_id, false);
-      request.setRequestHeader("Authorization", "Bearer " + this.accessToken);
-      request.send();
-      return JSON.parse(request.responseText);*/
-      return HTML;
     }
     
     window.onload = function(e) {
