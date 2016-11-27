@@ -246,7 +246,7 @@ function monzoSaveQuery(query, name) {
       }
     }
   } else {
-    document.getElementById("monzoSavedQueries").innerHTML += "<li><p onclick='select()'>test</p>";
+    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:document.getElementById(\'sql\').value=\'' + query + '\'">' + name + '</a></li>';
     monzoSavedQueries.push({query: query, name: name});
   }
   var cookiePath = new RegExp("https://.+?(/.+?)(?:index.html)?$").exec(document.location.href)[1];
