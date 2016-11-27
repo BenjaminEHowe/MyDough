@@ -116,7 +116,7 @@ function monzoTransactionHTML(monzo, id) {
       merchantId = null;
     } else {
       merchantId = transactions[i].merchant.id;
-      if (alasql('SELECT id from transactions where id="' + merchantId + '"').length == 0) {
+      if (alasql('SELECT id from merchants where id="' + merchantId + '"').length == 0) {
         // add merchant to alasql
         alasql('INSERT INTO merchants VALUES(' +
           '"' + transactions[i].merchant.id + '"' + ',' +
@@ -134,9 +134,6 @@ function monzoTransactionHTML(monzo, id) {
           '"' + transactions[i].merchant.logo + '"' + ',' +
           '"' + transactions[i].merchant.emoji + '"' + ',' +
           '"' + transactions[i].merchant.category + '");');
-        console.log(merchantId + " added to alasql");
-      } else {        
-        console.log(merchantId + " already exists in alasql");
       }
     }
     alasql('INSERT INTO transactions VALUES(' +
