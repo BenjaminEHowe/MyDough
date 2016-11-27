@@ -18,8 +18,8 @@
     
     function displayAccount(id) {
       if (accounts[id].provider == "monzo") {
-        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(accounts[id]);
-        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(accounts[id]);
+        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(accounts[id], id);
+        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(accounts[id], id);
       }
     }
     
