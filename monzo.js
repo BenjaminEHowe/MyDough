@@ -97,7 +97,7 @@ function monzoTransactionHTML(monzo, id) {
   for (var i = 0; i < transactions.length; i++) {
     var merchantId;
     if (transactions[i].merchant == null) {
-      marchantId = null;
+      merchantId = null;
     } else {
       merchantId = transactions[i].merchant.id;
     }
