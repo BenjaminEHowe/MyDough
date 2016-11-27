@@ -91,6 +91,7 @@ function monzoTransactionHTML(monzo, id) {
     'currency STRING,' +
     'amount INT,' +
     'account_balance INT,' +
+    'category STRING,' +
     'notes STRING);');
   alasql('CREATE TABLE merchants (' +
     'id STRING PRIMARY KEY,' +
@@ -151,6 +152,7 @@ function monzoTransactionHTML(monzo, id) {
       '"' + transactions[i].currency + '"' + ',' +
       transactions[i].amount + ',' +
       transactions[i].account_balance + ',' +
+      '"' + transactions[i].category + '"' + ',' +
       '"' + transactions[i].notes + '"' + ');');
   }
   
