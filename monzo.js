@@ -16,10 +16,7 @@ function getMonzo() {
     
     // other variables  
     accountId: null,
-    accountName: null,
-    cardId: null,
-    cardDigits: null,
-    cardExpires: null
+    cardId: null
   };
 }
   
@@ -72,6 +69,7 @@ function monzoCallback(monzo, authCode) {
     request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
     request.send();
     monzo.accountId = JSON.parse(request.responseText).accounts[0].id;
+    monzo.cardId = monzoGetCards(monzo).id;
   }
 }
 
@@ -91,10 +89,10 @@ function monzoDetailsHTML(monzo, id) {
   HTML += "<p>You spent &pound;" + (balance.spend_today*0.01).toFixed(2) + " today.</p>";
   if (card.status = "ACTIVE") {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") is currently active.<br />";
-    HTML += '<a href="javascript:monzoFreezeCard(\'' + card.id + '\', \'INACTIVE\')">Freeze your card</a></p>';
+    HTML += '<a href="javascript:monzoFreezeCard(accounts[' + id + '], \'INACTIVE\')">Freeze your card</a></p>';
   } else if (card.status = "INACTIVE") {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") is currently frozen.<br />";
-    HTML += '<a href="javascript:monzoFreezeCard(\'' + card.id + '\', \'ACTIVE\')">Defrost your card</a></p>';
+    HTML += '<a href="javascript:monzoFreezeCard(accounts[' + id + '], \'ACTIVE\')">Defrost your card</a></p>';
   } else {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") has unknown status!<br />";
   }
@@ -118,9 +116,9 @@ function monzoGetCards(monzo) {
   return JSON.parse(request.responseText).cards[0];
 }
 
-function monzoFreezeCard(cardId, targetStatus) {
+function monzoFreezeCard(monzo, targetStatus) {
   var request = new XMLHttpRequest();
-  request.open("PUT", "https://api.monzo.com/card/toggle?card_id=" + cardId + "&status=" + targetStatus, false);
+  request.open("PUT", "https://api.monzo.com/card/toggle?card_id=" + monzo.cardId + "&status=" + targetStatus, false);
   request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
   request.send();
   location.reload();
