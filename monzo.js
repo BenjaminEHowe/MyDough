@@ -156,7 +156,9 @@ function monzoTransactionHTML(monzo, id) {
   
   var HTML = "";
   HTML += "<h2>" + monzo.name + "</h2>";
-  HTML += '<textarea id="sql"></textarea><button type="button" onclick="javascript:monzoSql(document.getElementById(\'sql\').value)" id="searchButton">Search!</button>';
+  HTML += '<textarea id="sql"></textarea>';
+  HTML += '<button type="button" onclick="javascript:monzoSql(document.getElementById(\'sql\').value)" id="searchButton">Search!</button>';
+  HTML += '<button type="button" onclick="javascript:monzoSaveQuery(document.getElementById(\'sql\').value)" id="searchButton">Save Query</button>';
   HTML += '<table id="transactions"></table>';
   return HTML;
 }
@@ -177,6 +179,8 @@ function monzoDetailsHTML(monzo, id) {
   } else {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") has unknown status!<br />";
   }
+  HTML += "<h3>Saved Queries</h3>";
+  HTML += "<p>You appear to have no saved queries at the moment...</p>"
   return HTML;
 }
 
@@ -216,6 +220,26 @@ function monzoFreezeCard(monzo, targetStatus, id) {
   request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
   request.send();
   document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(monzo, id)
+}
+
+function monzoSaveQuery(query, name) {
+  if (typeof name === "undefined") {
+    var name = prompt("What would you like to call this query?");
+    if (name == null || name == "") {
+      return;
+    }
+  }
+  if (query == "") {
+    for (var i = 0; i < monzoSavedQueries.length; i++) {
+      if (monzoSavedQueries[i].name == name) {
+        monzoSavedQueries.splice(i, 1);
+      }
+    }
+  } else {
+    monzoSavedQueries.push({query: query, name: name});
+  }
+  var cookiePath = new RegExp("https://.+?(/.+?)(?:index.html)?").exec(document.location.href)[1];
+  setCookie("monzoSavedQueries", JSON.stringify(monzoSavedQueries), cookiePath, 28*24); // store queries for 28 days
 }
 
 function monzoSql(query) {

@@ -11,6 +11,7 @@
   <script type="text/javascript" src="monzo.js"></script>
   <script type="text/javascript">
     var accounts;
+    var monzoSavedQueries;
     
     function clearDisplay() {
       document.getElementById("accountTransactions").innerHTML = "";
@@ -19,6 +20,11 @@
     
     function displayAccount(id) {
       if (accounts[id].provider == "monzo") {
+        if (getCookie("monzoSavedQueries")) {
+          monzoSavedQueries = JSON.parse(getCookie("monzoSavedQueries"));
+        } else {
+          monzoSavedQueries = new Array();
+        }
         document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(accounts[id], id);
         document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(accounts[id], id);
       }
