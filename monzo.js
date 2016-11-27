@@ -227,6 +227,10 @@ function monzoFreezeCard(monzo, targetStatus, id) {
   document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(monzo, id)
 }
 
+function select() {
+document.getElementById('sql').value='select';
+}
+
 function monzoSaveQuery(query, name) {
   if (typeof name === "undefined") {
     var name = prompt("What would you like to call this query?");
@@ -242,7 +246,7 @@ function monzoSaveQuery(query, name) {
       }
     }
   } else {
-    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:document.getElementById(\'sql\').value=\'' + query + '\'">' + name + '</a></li>';
+    document.getElementById("monzoSavedQueries").innerHTML += "<li><p onclick='select()'>test</p>";
     monzoSavedQueries.push({query: query, name: name});
   }
   var cookiePath = new RegExp("https://.+?(/.+?)(?:index.html)?$").exec(document.location.href)[1];
