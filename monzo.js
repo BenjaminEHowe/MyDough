@@ -89,8 +89,8 @@ function monzoTransactionHTML(monzo, id) {
     'merchant_id STRING,' +
     'description STRING,' +
     'currency STRING,' +
-    'amount INT,' +
-    'account_balance INT,' +
+    'amount DECIMAL(10,2),' +
+    'account_balance DECIMAL(10,2),' +
     'notes STRING);');
   alasql('CREATE TABLE merchants (' +
     'id STRING PRIMARY KEY,' +
@@ -100,9 +100,9 @@ function monzoTransactionHTML(monzo, id) {
     'region STRING,' +
     'country STRING,' +
     'postcode STRING,' +
-    'latitude DECIMAL,' +
-    'longitude DECIMAL,' +
-    'zoom_level DECIMAL,' +
+    'latitude DOUBLE PRECISION,' +
+    'longitude DOUBLE PRECISION,' +
+    'zoom_level INT,' +
     'created Date,' +
     'group_id STRING,' +
     'logo STRING,' +
@@ -144,8 +144,8 @@ function monzoTransactionHTML(monzo, id) {
       '"' + merchantId + '"' + ',' +
       '"' + transactions[i].description + '"' + ',' +
       '"' + transactions[i].currency + '"' + ',' +
-      transactions[i].amount + ',' +
-      transactions[i].account_balance + ',' +
+      transactions[i].amount / 100 + ',' +
+      transactions[i].account_balance / 100 + ',' +
       '"' + transactions[i].notes + '"' + ');');
   }
   
