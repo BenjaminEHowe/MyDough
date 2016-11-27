@@ -95,12 +95,18 @@ function monzoTransactionHTML(monzo, id) {
   
   transactions = monzoGetTransactions(monzo, true);
   for (var i = 0; i < transactions.length; i++) {
+    var merchantId;
+    if (transactions[i].merchant == null) {
+      marchantId = null;
+    } else {
+      merchantId = transactions[i].merchant.id;
+    }
     alasql('INSERT INTO transactions VALUES(' +
       '"' + transactions[i].id + '"' + ',' +
       '"' + transactions[i].created + '"' + ',' +
       '"' + transactions[i].settled + '"' + ',' +
       transactions[i].is_load + ',' +
-      '"' + transactions[i].merchant.id + '"' + ',' +
+      '"' + merchantId + '"' + ',' +
       '"' + transactions[i].description + '"' + ',' +
       '"' + transactions[i].currency + '"' + ',' +
       transactions[i].amount + ',' +
