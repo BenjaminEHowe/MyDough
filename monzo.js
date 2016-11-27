@@ -257,6 +257,7 @@ function monzoSaveQuery(query, name) {
 
 function monzoSetQuery(query) {
   document.getElementById('sql').value = query;
+  monzoSql(query);
 }
 
 function monzoSql(query) {
