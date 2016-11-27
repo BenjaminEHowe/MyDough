@@ -87,10 +87,10 @@ function monzoDetailsHTML(monzo, id) {
   HTML += "<p>Welcome, " + card.name + "!</p>";
   HTML += "<p><strong>Balance: &pound;" + (balance.balance*0.01).toFixed(2) + "</strong></p>";
   HTML += "<p>You spent &pound;" + (balance.spend_today*0.01).toFixed(2) + " today.</p>";
-  if (card.status = "ACTIVE") {
+  if (card.status == "ACTIVE") {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") is currently active.<br />";
     HTML += '<a href="javascript:monzoFreezeCard(accounts[' + id + '], \'INACTIVE\')">Freeze your card</a></p>';
-  } else if (card.status = "INACTIVE") {
+  } else if (card.status == "INACTIVE") {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") is currently frozen.<br />";
     HTML += '<a href="javascript:monzoFreezeCard(accounts[' + id + '], \'ACTIVE\')">Defrost your card</a></p>';
   } else {
