@@ -240,12 +240,12 @@ function monzoSaveQuery(query, name) {
   }
   if (query == "") {
     for (var i = 0; i < monzoSavedQueries.length; i++) {
-      if (monzoSavedQueries[i].name == name) {monzoSavedQueries[i].name + '</a></li>', '');
+      if (monzoSavedQueries[i].name == name) {
         monzoSavedQueries.splice(i, 1);
       }
     }
-    document.getElementById("monzoSavedQueries").innerHTML = "";
     // re-add saved queries
+    document.getElementById("monzoSavedQueries").innerHTML = "";
     for (var i = 0; i < monzoSavedQueries.length; i++) {
       document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + monzoSavedQueries[i].query + '\')">' + monzoSavedQueries[i].name + '</a></li>';
     }
