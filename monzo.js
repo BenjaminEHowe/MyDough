@@ -227,10 +227,6 @@ function monzoFreezeCard(monzo, targetStatus, id) {
   document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(monzo, id)
 }
 
-function select() {
-document.getElementById('sql').value='select';
-}
-
 function monzoSaveQuery(query, name) {
   if (typeof name === "undefined") {
     var name = prompt("What would you like to call this query?");
@@ -241,16 +237,20 @@ function monzoSaveQuery(query, name) {
   if (query == "") {
     for (var i = 0; i < monzoSavedQueries.length; i++) {
       if (monzoSavedQueries[i].name == name) {
-        document.getElementById("monzoSavedQueries").innerHTML.replace('<li><a href="javascript:document.getElementById(\'sql\').value=\'' + monzoSavedQueries[i].query + '\'">' + monzoSavedQueries[i].name + '</a></li>', '');
+        document.getElementById("monzoSavedQueries").innerHTML.replace('<li><a href="javascript:monzoSetQuery(\'' + monzoSavedQueries[i].query + '\')">' + monzoSavedQueries[i].name + '</a></li>', '');
         monzoSavedQueries.splice(i, 1);
       }
     }
   } else {
-    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:document.getElementById(\'sql\').value=\'' + query + '\'">' + name + '</a></li>';
+    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + query + '\')">' + name + '</a></li>';
     monzoSavedQueries.push({query: query, name: name});
   }
   var cookiePath = new RegExp("https://.+?(/.+?)(?:index.html)?$").exec(document.location.href)[1];
   setCookie("monzoSavedQueries", JSON.stringify(monzoSavedQueries), cookiePath, 28*24); // store queries for 28 days
+}
+
+function monzoSetQuery(query) {
+  document.getElementById('sql').value = query;
 }
 
 function monzoSql(query) {
