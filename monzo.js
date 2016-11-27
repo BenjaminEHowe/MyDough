@@ -77,6 +77,22 @@ function monzoCallback(monzo, authCode) {
 function monzoTransactionHTML(monzo, id) {
   var HTML = "";
   HTML += "<h2>" + monzo.name + "</h2>";
+  try {
+    alasql("drop table transactions")
+  } catch(err) {
+    console.log(err.message);
+  }
+  alasql('CREATE TABLE transactions (' +
+			'id STRING PRIMARY KEY,' +
+			'created Date,' +
+			'settled Date,' +
+			'is_load BOOLEAN,' +
+			'merchant_id STRING,' +
+			'description STRING,' +
+			'currency STRING,' +
+			'amount INT,' +
+			'account_balance INT,' +
+			'notes STRING);');
   return HTML;
 }
 
