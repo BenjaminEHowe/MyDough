@@ -92,6 +92,22 @@ function monzoTransactionHTML(monzo, id) {
     'amount INT,' +
     'account_balance INT,' +
     'notes STRING);');
+  alasql('CREATE TABLE merchants (' +
+    'id STRING PRIMARY KEY,' +
+    'name STRING,' +
+    'address STRING,' +
+    'city STRING,' +
+    'region STRING,' +
+    'country STRING,' +
+    'postcode STRING,' +
+    'latitude DECIMAL,' +
+    'longitude DECIMAL,' +
+    'zoom_level DECIMAL,' +
+    'created Date,' +
+    'group_id STRING,' +
+    'logo STRING,' +
+    'emoji STRING,' +
+    'category STRING;');
   
   transactions = monzoGetTransactions(monzo, true);
   for (var i = 0; i < transactions.length; i++) {
@@ -100,6 +116,25 @@ function monzoTransactionHTML(monzo, id) {
       merchantId = null;
     } else {
       merchantId = transactions[i].merchant.id;
+      if (alasql('SELECT id from transactions where id="' + merchantId + '"').length == 0) {
+        // add merchant to alasql
+        alasql('INSERT INTO merchants VALUES(' +
+          '"' + transactions[i].merchant.id + '"' + ',' +
+          '"' + transactions[i].merchant.name + '"' + ',' +
+          '"' + transactions[i].merchant.address.address + '"' + ',' +
+          '"' + transactions[i].merchant.address.city + '"' + ',' +
+          '"' + transactions[i].merchant.address.region + '"' + ',' +
+          '"' + transactions[i].merchant.address.country + '"' + ',' +
+          '"' + transactions[i].merchant.address.postcode + '"' + ',' +
+          transactions[i].merchant.address.latitude + ',' +
+          transactions[i].merchant.address.longitude + ',' +
+          transactions[i].merchant.address.zoom_level + ',' +
+          '"' + transactions[i].merchant.created + '"' + ',' +
+          '"' + transactions[i].merchant.group_id + '"' + ',' +
+          '"' + transactions[i].merchant.logo + '"' + ',' +
+          '"' + transactions[i].merchant.emoji + '"' + ',' +
+          '"' + transactions[i].merchant.category + '");');
+      }
     }
     alasql('INSERT INTO transactions VALUES(' +
       '"' + transactions[i].id + '"' + ',' +
