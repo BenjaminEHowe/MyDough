@@ -89,10 +89,10 @@ function monzoDetailsHTML(monzo, id) {
   HTML += "<p>You spent &pound;" + (balance.spend_today*0.01).toFixed(2) + " today.</p>";
   if (card.status == "ACTIVE") {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") is currently active.<br />";
-    HTML += '<a href="javascript:monzoFreezeCard(accounts[' + id + '], \'INACTIVE\')">Freeze your card</a></p>';
+    HTML += '<a href="javascript:monzoFreezeCard(accounts[' + id + '], \'INACTIVE\', ' + id + ')">Freeze your card</a></p>';
   } else if (card.status == "INACTIVE") {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") is currently frozen.<br />";
-    HTML += '<a href="javascript:monzoFreezeCard(accounts[' + id + '], \'ACTIVE\')">Defrost your card</a></p>';
+    HTML += '<a href="javascript:monzoFreezeCard(accounts[' + id + '], \'ACTIVE\', ' + id + ')">Defrost your card</a></p>';
   } else {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") has unknown status!<br />";
   }
@@ -116,10 +116,10 @@ function monzoGetCards(monzo) {
   return JSON.parse(request.responseText).cards[0];
 }
 
-function monzoFreezeCard(monzo, targetStatus) {
+function monzoFreezeCard(monzo, targetStatus, id) {
   var request = new XMLHttpRequest();
   request.open("PUT", "https://api.monzo.com/card/toggle?card_id=" + monzo.cardId + "&status=" + targetStatus, false);
   request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
   request.send();
-  location.reload();
+  document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(monzo, id)
 }
