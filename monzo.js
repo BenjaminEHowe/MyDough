@@ -75,9 +75,14 @@ function monzoCallback(monzo, authCode) {
 
 // HTML functions
 function monzoTransactionHTML(monzo, id) {
-  // alasql  
+  // alasql
   try {
     alasql("drop table transactions")
+  } catch(err) {
+    console.log(err.message);
+  }
+  try {
+    alasql("drop table merchants")
   } catch(err) {
     console.log(err.message);
   }
@@ -180,7 +185,7 @@ function monzoDetailsHTML(monzo, id) {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") has unknown status!<br />";
   }
   HTML += "<h3>Saved Queries</h3>";
-  HTML += "<p>You appear to have no saved queries at the moment...</p>"
+  HTML += '<ul id="monzoSavedQueries"></ul>';
   return HTML;
 }
 
@@ -236,6 +241,7 @@ function monzoSaveQuery(query, name) {
       }
     }
   } else {
+    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:document.getElementById(\'sql\').value=\'' + query + '\'">' + name + '</a></li>';
     monzoSavedQueries.push({query: query, name: name});
   }
   var cookiePath = new RegExp("https://.+?(/.+?)(?:index.html)?").exec(document.location.href)[1];

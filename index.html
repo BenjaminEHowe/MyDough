@@ -20,13 +20,16 @@
     
     function displayAccount(id) {
       if (accounts[id].provider == "monzo") {
+        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(accounts[id], id);
+        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(accounts[id], id);
         if (getCookie("monzoSavedQueries")) {
           monzoSavedQueries = JSON.parse(getCookie("monzoSavedQueries"));
+          for (var i = 0; i < monzoSavedQueries.length; i++) {
+            document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:document.getElementById(\'sql\').value=\'' + monzoSavedQueries[i].query + '\'">' + monzoSavedQueries[i].name + '</a></li>';
+          }
         } else {
           monzoSavedQueries = new Array();
         }
-        document.getElementById("accountTransactions").innerHTML = monzoTransactionHTML(accounts[id], id);
-        document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(accounts[id], id);
       }
     }
     
