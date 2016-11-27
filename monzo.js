@@ -109,7 +109,7 @@ function monzoTransactionHTML(monzo, id) {
     'emoji STRING,' +
     'category STRING);');
   // create a fake merchant for top-ups
-  alasql('INSERT INTO merchants VALUES("merch_monzo", "Monzo", null, null, null, null, null, null, null, null, null, null, null, null);');
+  alasql('INSERT INTO merchants VALUES("merch_monzo", "Monzo", null, null, null, null, null, null, null, null, null, null, null, null, null);');
   
   transactions = monzoGetTransactions(monzo, true);
   for (var i = 0; i < transactions.length; i++) {
