@@ -108,6 +108,8 @@ function monzoTransactionHTML(monzo, id) {
     'logo STRING,' +
     'emoji STRING,' +
     'category STRING);');
+  // create a fake merchant for top-ups
+  alasql('INSERT INTO merchants VALUES("merch_monzo", "Monzo", null, null, null, null, null, null, null, null, null, null, null, null;');
   
   transactions = monzoGetTransactions(monzo, true);
   for (var i = 0; i < transactions.length; i++) {
@@ -115,11 +117,9 @@ function monzoTransactionHTML(monzo, id) {
     if (transactions[i].merchant == null) {
       merchantId = null;
       if (transactions[i].is_load) {
-        console.log("Found a transaction with no merchant, but it was a load...");
-      } else {
-        console.log("Found a transaction with no merchant - panic!")
+        merchantId = "merch_monzo";
       }
-    } else {
+    } else {      
       merchantId = transactions[i].merchant.id;
       if (alasql('SELECT id from merchants where id="' + merchantId + '"').length == 0) {
         // add merchant to alasql
