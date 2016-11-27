@@ -116,6 +116,7 @@ function monzoTransactionHTML(monzo, id) {
   
   var HTML = "";
   HTML += "<h2>" + monzo.name + "</h2>";
+  HTML += '<table id="transactions"></table>';
   return HTML;
 }
 
