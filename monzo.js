@@ -242,12 +242,12 @@ function monzoSaveQuery(query, name) {
     for (var i = 0; i < monzoSavedQueries.length; i++) {
       if (monzoSavedQueries[i].name == name) {monzoSavedQueries[i].name + '</a></li>', '');
         monzoSavedQueries.splice(i, 1);
-        document.getElementById("monzoSavedQueries").innerHTML = "";
-        // re-add saved queries
-        for (var i = 0; i < monzoSavedQueries.length; i++) {
-          document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + monzoSavedQueries[i].query + '\')">' + monzoSavedQueries[i].name + '</a></li>';
-        }
       }
+    }
+    document.getElementById("monzoSavedQueries").innerHTML = "";
+    // re-add saved queries
+    for (var i = 0; i < monzoSavedQueries.length; i++) {
+      document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + monzoSavedQueries[i].query + '\')">' + monzoSavedQueries[i].name + '</a></li>';
     }
   } else {
     query = query.replace(";", ""); // remove semicolons because they break stuff...
