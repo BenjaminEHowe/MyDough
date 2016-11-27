@@ -114,6 +114,11 @@ function monzoTransactionHTML(monzo, id) {
     var merchantId;
     if (transactions[i].merchant == null) {
       merchantId = null;
+      if (transactions[i].is_load) {
+        console.log("Found a transaction with no merchant, but it was a load...");
+      } else {
+        console.log("Found a transaction with no merchant - panic!")
+      }
     } else {
       merchantId = transactions[i].merchant.id;
       if (alasql('SELECT id from merchants where id="' + merchantId + '"').length == 0) {
