@@ -156,6 +156,7 @@ function monzoTransactionHTML(monzo, id) {
   
   var HTML = "";
   HTML += "<h2>" + monzo.name + "</h2>";
+  HTML += '<input id="sql"></input><button type="button" onclick="javascript:alasql(document.getElementById(\'sql\').value)"></button>';
   HTML += '<table id="transactions"></table>';
   return HTML;
 }
