@@ -107,7 +107,7 @@ function monzoTransactionHTML(monzo, id) {
     'group_id STRING,' +
     'logo STRING,' +
     'emoji STRING,' +
-    'category STRING;');
+    'category STRING);');
   
   transactions = monzoGetTransactions(monzo, true);
   for (var i = 0; i < transactions.length; i++) {
