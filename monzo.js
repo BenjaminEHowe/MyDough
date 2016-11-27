@@ -242,6 +242,7 @@ function monzoSaveQuery(query, name) {
       }
     }
   } else {
+    query = query.replace(";", ""); // remove semicolons because they break stuff...
     document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + query + '\')">' + name + '</a></li>';
     monzoSavedQueries.push({query: query, name: name});
   }
