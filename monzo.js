@@ -134,6 +134,9 @@ function monzoTransactionHTML(monzo, id) {
           '"' + transactions[i].merchant.logo + '"' + ',' +
           '"' + transactions[i].merchant.emoji + '"' + ',' +
           '"' + transactions[i].merchant.category + '");');
+        console.log(merchantId + " added to alasql");
+      } else {        
+        console.log(merchantId + " already exists in alasql");
       }
     }
     alasql('INSERT INTO transactions VALUES(' +
