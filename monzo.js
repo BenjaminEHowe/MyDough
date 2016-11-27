@@ -237,6 +237,7 @@ function monzoSaveQuery(query, name) {
   if (query == "") {
     for (var i = 0; i < monzoSavedQueries.length; i++) {
       if (monzoSavedQueries[i].name == name) {
+        document.getElementById("monzoSavedQueries").innerHTML.replace('<li><a href="javascript:document.getElementById(\'sql\').value=\'' + monzoSavedQueries[i].query + '\'">' + monzoSavedQueries[i].name + '</a></li>', '');
         monzoSavedQueries.splice(i, 1);
       }
     }
