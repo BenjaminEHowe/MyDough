@@ -227,7 +227,7 @@ function monzoFreezeCard(monzo, targetStatus, id) {
   document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(monzo, id);
   // re-add saved queries
   for (var i = 0; i < monzoSavedQueries.length; i++) {
-    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\\"' + monzoSavedQueries[i].query + '\\")">' + monzoSavedQueries[i].name + '</a></li>';
+    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + monzoSavedQueries[i].query + '\')">' + monzoSavedQueries[i].name + '</a></li>';
   }
 }
 
@@ -241,7 +241,7 @@ function monzoSaveQuery(query, name) {
   if (query == "") {
     for (var i = 0; i < monzoSavedQueries.length; i++) {
       if (monzoSavedQueries[i].name == name) {
-        document.getElementById("monzoSavedQueries").innerHTML = document.getElementById("monzoSavedQueries").innerHTML.replace('<li><a href="javascript:monzoSetQuery(\\"' + monzoSavedQueries[i].query + '\\")">' + monzoSavedQueries[i].name + '</a></li>', '');
+        document.getElementById("monzoSavedQueries").innerHTML = document.getElementById("monzoSavedQueries").innerHTML.replace('<li><a href="javascript:monzoSetQuery(\'' + monzoSavedQueries[i].query + '\'`)">' + monzoSavedQueries[i].name + '</a></li>', '');
         monzoSavedQueries.splice(i, 1);
       }
     }
@@ -249,7 +249,7 @@ function monzoSaveQuery(query, name) {
     query = query.replace(";", ""); // remove semicolons because they break stuff...
     query = query.replace("'", "``"); // as do quotes...
     query = query.replace('"', "``");
-    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\\"' + query + '\\")">' + name + '</a></li>';
+    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + query + '\')">' + name + '</a></li>';
     monzoSavedQueries.push({query: query, name: name});
   }
   var cookiePath = new RegExp("https://.+?(/.+?)(?:index.html)?$").exec(document.location.href)[1];
