@@ -81,8 +81,8 @@ function monzoTransactionHTML(monzo) {
 function monzoDetailsHTML(monzo) {
   var HTML = "";
   var balance = monzoGetBalance(monzo);
-  HTML += "<p><strong>Balance: £" + (balance.balance*0.01).toFixed(2) + "</strong></p>"
-  HTML += "<p>You spent £" + (balance.spend_today*0.01).toFixed(2) + " today.</p>"
+  HTML += "<p><strong>Balance: &pound;" + (balance.balance*0.01).toFixed(2) + "</strong></p>"
+  HTML += "<p>You spent &pound;" + (balance.spend_today*0.01).toFixed(2) + " today.</p>"
   return HTML;
 }
 
