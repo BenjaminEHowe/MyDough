@@ -224,7 +224,11 @@ function monzoFreezeCard(monzo, targetStatus, id) {
   request.open("PUT", "https://api.monzo.com/card/toggle?card_id=" + monzo.cardId + "&status=" + targetStatus, false);
   request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
   request.send();
-  document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(monzo, id)
+  document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(monzo, id);
+  // re-add saved queries
+  for (var i = 0; i < monzoSavedQueries.length; i++) {
+    document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + monzoSavedQueries[i].query + '\')">' + monzoSavedQueries[i].name + '</a></li>';
+  }
 }
 
 function monzoSaveQuery(query, name) {
@@ -243,6 +247,7 @@ function monzoSaveQuery(query, name) {
     }
   } else {
     query = query.replace(";", ""); // remove semicolons because they break stuff...
+    query = query.replace('"', "'"); // as do double quotes...
     document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + query + '\')">' + name + '</a></li>';
     monzoSavedQueries.push({query: query, name: name});
   }
