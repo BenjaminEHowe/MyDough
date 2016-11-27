@@ -158,7 +158,7 @@ function monzoTransactionHTML(monzo, id) {
   
   var HTML = "";
   HTML += "<h2>" + monzo.name + "</h2>";
-  HTML += '<textarea id="sql"></textarea><button type="button" onclick="javascript:alasql(document.getElementById(\'sql\').value)" id="searchButton">Search!</button>';
+  HTML += '<textarea id="sql"></textarea><button type="button" onclick="javascript:monzoSql(document.getElementById(\'sql\').value)" id="searchButton">Search!</button>';
   HTML += '<table id="transactions"></table>';
   return HTML;
 }
@@ -218,4 +218,8 @@ function monzoFreezeCard(monzo, targetStatus, id) {
   request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
   request.send();
   document.getElementById("accountDetails").innerHTML = monzoDetailsHTML(monzo, id)
+}
+
+function monzoSql(query) {
+  alasql(query.replace(' from ', ' INTO HTML("#transactions", {headers:true}) from '));
 }
