@@ -33,3 +33,19 @@ body {
   display: block;
   margin: 0 auto 10px;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border:1px solid #000;
+}
+
+th, td {
+  padding: 5px;
+}
+
+th {
+  text-align: center;
+}
