@@ -247,8 +247,8 @@ function monzoSaveQuery(query, name) {
     }
   } else {
     query = query.replace(";", ""); // remove semicolons because they break stuff...
-    query = query.replace("'", "``"); // as do quotes...
-    query = query.replace('"', "``");
+    query = query.replace(/'/g, "``"); // as do quotes...
+    query = query.replace(/"/g, "``");
     document.getElementById("monzoSavedQueries").innerHTML += '<li><a href="javascript:monzoSetQuery(\'' + query + '\')">' + name + '</a></li>';
     monzoSavedQueries.push({query: query, name: name});
   }
@@ -257,10 +257,10 @@ function monzoSaveQuery(query, name) {
 }
 
 function monzoSetQuery(query) {
-  document.getElementById('sql').value = query;
+  document.getElementById('sql').value = query.replace(/``/g, '"');
   monzoSql(query);
 }
 
 function monzoSql(query) {
-  alasql(query.replace(' from ', ' INTO HTML("#transactions", {headers:true}) from ').replace('``', '"'));
+  alasql(query.replace(' from ', ' INTO HTML("#transactions", {headers:true}) from '));
 }
