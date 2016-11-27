@@ -91,10 +91,10 @@ function monzoDetailsHTML(monzo, id) {
   HTML += "<p>You spent &pound;" + (balance.spend_today*0.01).toFixed(2) + " today.</p>";
   if (card.status = "ACTIVE") {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") is currently active.<br />";
-    HTML += '<a href="javascript:monzoFreezeCard(' + card.id + ', \'INACTIVE\')">Freeze your card</a></p>';
+    HTML += '<a href="javascript:monzoFreezeCard(\'' + card.id + '\', \'INACTIVE\')">Freeze your card</a></p>';
   } else if (card.status = "INACTIVE") {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") is currently frozen.<br />";
-    HTML += '<a href="javascript:monzoFreezeCard(' + card.id + ', \'ACTIVE\')">Defrost your card</a></p>';
+    HTML += '<a href="javascript:monzoFreezeCard(\'' + card.id + '\', \'ACTIVE\')">Defrost your card</a></p>';
   } else {
     HTML += "<p>Your card (last 4 digits " + card.last_digits + ") has unknown status!<br />";
   }
