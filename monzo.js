@@ -81,6 +81,8 @@ function monzoTransactionHTML(monzo) {
 function monzoDetailsHTML(monzo) {
   var HTML = "";
   var balance = monzoGetBalance(monzo);
+  var card = monzoGetCards(monzo);
+  HTML += "<p>Welcome, " + card.name + "!</p>"
   HTML += "<p><strong>Balance: &pound;" + (balance.balance*0.01).toFixed(2) + "</strong></p>"
   HTML += "<p>You spent &pound;" + (balance.spend_today*0.01).toFixed(2) + " today.</p>"
   return HTML;
@@ -100,5 +102,5 @@ function monzoGetCards(monzo) {
   request.open("GET", "https://api.monzo.com/card/list?account_id=" + monzo.accountId, false);
   request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
   request.send();
-  return JSON.parse(request.responseText);
+  return JSON.parse(request.responseText).cards[0];
 }
