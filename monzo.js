@@ -94,3 +94,11 @@ function monzoGetBalance(monzo) {
   request.send();
   return JSON.parse(request.responseText);
 }
+
+function monzoGetCards(monzo) {
+  var request = new XMLHttpRequest();
+  request.open("GET", "https://api.monzo.com/card/list?account_id=" + monzo.accountId, false);
+  request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
+  request.send();
+  return JSON.parse(request.responseText);
+}
