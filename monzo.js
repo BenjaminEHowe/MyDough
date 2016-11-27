@@ -75,24 +75,41 @@ function monzoCallback(monzo, authCode) {
 
 // HTML functions
 function monzoTransactionHTML(monzo, id) {
-  var HTML = "";
-  HTML += "<h2>" + monzo.name + "</h2>";
+  // alasql  
   try {
     alasql("drop table transactions")
   } catch(err) {
     console.log(err.message);
   }
   alasql('CREATE TABLE transactions (' +
-			'id STRING PRIMARY KEY,' +
-			'created Date,' +
-			'settled Date,' +
-			'is_load BOOLEAN,' +
-			'merchant_id STRING,' +
-			'description STRING,' +
-			'currency STRING,' +
-			'amount INT,' +
-			'account_balance INT,' +
-			'notes STRING);');
+    'id STRING PRIMARY KEY,' +
+    'created Date,' +
+    'settled Date,' +
+    'is_load BOOLEAN,' +
+    'merchant_id STRING,' +
+    'description STRING,' +
+    'currency STRING,' +
+    'amount INT,' +
+    'account_balance INT,' +
+    'notes STRING);');
+  
+  transactions = monzoGetTransactions(monzo, true);
+  for (var i = 0; i < transactions.length; i++) {
+    alasql('INSERT INTO transactions VALUES(' +
+      '"' + transactions[i].id + '"' + ',' +
+      '"' + transactions[i].created + '"' + ',' +
+      '"' + transactions[i].settled + '"' + ',' +
+      transactions[i].is_load + ',' +
+      '"' + transactions[i].merchant.id + '"' + ',' +
+      '"' + transactions[i].description + '"' + ',' +
+      '"' + transactions[i].currency + '"' + ',' +
+      transactions[i].amount + ',' +
+      transactions[i].account_balance + ',' +
+      '"' + transactions[i].notes + '"' + ');');
+  }
+  
+  var HTML = "";
+  HTML += "<h2>" + monzo.name + "</h2>";
   return HTML;
 }
 
@@ -130,6 +147,19 @@ function monzoGetCards(monzo) {
   request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
   request.send();
   return JSON.parse(request.responseText).cards[0];
+}
+
+function monzoGetTransactions(monzo, expand) {
+  if (typeof expand === "undefined") { expand = false; }
+  var request = new XMLHttpRequest();
+  if (expand) {
+    request.open("GET", "https://api.monzo.com/transactions?account_id=" + monzo.accountId + "&expand[]=merchant", false);
+  } else {
+    request.open("GET", "https://api.monzo.com/transactions?account_id=" + monzo.accountId, false);
+  }
+  request.setRequestHeader("Authorization", "Bearer " + monzo.accessToken);
+  request.send();
+  return JSON.parse(request.responseText).transactions;  
 }
 
 function monzoFreezeCard(monzo, targetStatus, id) {
