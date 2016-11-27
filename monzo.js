@@ -104,13 +104,12 @@ function monzoTransactionHTML(monzo, id) {
     'latitude DOUBLE PRECISION,' +
     'longitude DOUBLE PRECISION,' +
     'zoom_level INT,' +
-    'created Date,' +
     'group_id STRING,' +
     'logo STRING,' +
     'emoji STRING,' +
     'category STRING);');
   // create a fake merchant for top-ups
-  alasql('INSERT INTO merchants VALUES("merch_monzo", "Monzo", null, null, null, null, null, null, null, null, null, null, null, null, null);');
+  alasql('INSERT INTO merchants VALUES("merch_monzo", "Monzo", null, null, null, null, null, null, null, null, null, null, null, null);');
   
   transactions = monzoGetTransactions(monzo, true);
   for (var i = 0; i < transactions.length; i++) {
@@ -135,7 +134,6 @@ function monzoTransactionHTML(monzo, id) {
           transactions[i].merchant.address.latitude + ',' +
           transactions[i].merchant.address.longitude + ',' +
           transactions[i].merchant.address.zoom_level + ',' +
-          '"' + transactions[i].merchant.created + '"' + ',' +
           '"' + transactions[i].merchant.group_id + '"' + ',' +
           '"' + transactions[i].merchant.logo + '"' + ',' +
           '"' + transactions[i].merchant.emoji + '"' + ',' +
